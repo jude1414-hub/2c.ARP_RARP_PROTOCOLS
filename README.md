@@ -15,15 +15,11 @@ To write a python program for simulating ARP protocols using TCP.
 stored.
 4. Read the IP address which is send by the client.
 5. Map the IP address with its MAC address and return the MAC address to client.
+P
 ## PROGRAM - ARP
-```
-NAME : Jude Clement Jose G
 
-REGISTER NUMBER : 212224230109
-```
-## CLENT:
-```
-import socket 
+server.py 
+```import socket
 s=socket.socket()
 s.bind(('localhost',8000))
 s.listen(5)
@@ -36,23 +32,52 @@ while True:
     except KeyError:
         c.send("Not Found".encode())
 ```
-## SERVER:
-```
-import socket
+client.py
+```import socket
 s=socket.socket()
 s.connect(('localhost',8000))
 while True:
- ip=input("Enter logical Address: ")
- s.send(ip.encode())
- print("MAC Address",s.recv(1024).decode())
+    ip=input("Enter logical Address : ")
+    s.send(ip.encode())
+    print("MAC Address",s.recv(1024).decode())
 ```
-## OUPUT -ARP
-## CLIENT:
-<img width="960" alt="3ac" src="https://github.com/user-attachments/assets/cbba22a0-65d7-4327-aec8-6d0d2600fe18">
 
-## SERVER:
+## OUPUT - ARP
 
-<img width="960" alt="3as" src="https://github.com/user-attachments/assets/e67b9840-8e03-4435-a29e-96a45cac76ac">
+![image](https://github.com/user-attachments/assets/13e2d267-a2e4-4fca-92cf-7d29e4834c46)
+
+
+## PROGRAM - RARP
+server.py
+```
+
+import socket
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"};
+while True:
+    mac=c.recv(1024).decode()
+    try:
+        c.send(address[mac].encode())
+    except KeyError:
+        c.send("Not Found".encode())
+```
+client.py 
+
+``` import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+while True:
+    mac=input("Enter logical address: ")
+    s.send(mac.encode())
+    print("MAC Address",s.recv(1024).decode())
+```
+## OUPUT -RARP
+
+![image](https://github.com/user-attachments/assets/1f76e23b-275e-40c3-80e1-1229cd0451a9)
+
 
 ## RESULT
 Thus, the python program for simulating ARP protocols using TCP was successfully 
